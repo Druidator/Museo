@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.melvin.entregableweb.R;
 import com.melvin.entregableweb.model.Pintura;
@@ -28,7 +30,7 @@ public class AdapterObra extends RecyclerView.Adapter {
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = inflater.inflate(R.layout.layout_item_obra, viewGroup);
+        View view = inflater.inflate(R.layout.layout_item_obra, viewGroup, false);
 
         ObraViewHolder holder = new ObraViewHolder(view);
 
@@ -50,13 +52,21 @@ public class AdapterObra extends RecyclerView.Adapter {
 
     private class ObraViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView nombre;
+        private ImageView imagen;
+
         public ObraViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            nombre = itemView.findViewById(R.id.nombrePintura);
+            imagen = itemView.findViewById(R.id.imagenPintura);
         }
 
 
         public void cargar(Pintura unaPintura){
 
+            nombre.setText(unaPintura.getNombre());
+            imagen.setImageResource(R.drawable.grito);
         }
     }
 
