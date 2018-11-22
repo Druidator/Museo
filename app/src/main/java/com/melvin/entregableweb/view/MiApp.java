@@ -1,4 +1,4 @@
-package com.melvin.entregableweb;
+package com.melvin.entregableweb.view;
 
 import android.app.Application;
 

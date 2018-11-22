@@ -2,5 +2,8 @@
     <string name="app_name">EntregableWeb</string>
     <string name="facebook_app_id">2136529339725738</string>
     <string name="fb_login_protocol_scheme">fb2136529339725738</string>
-
+    <string name="logout">Logout</string>
+    <string name="nombre">Nombre: </string>
+    <string name="nacionalidad">Nacionalidad: </string>
+    <string name="influenciado">Influenciado por: </string>
 </resources>

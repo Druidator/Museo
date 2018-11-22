@@ -1,6 +1,7 @@
 package com.melvin.entregableweb.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,17 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.melvin.entregableweb.R;
 import com.melvin.entregableweb.model.Pintura;
+import com.melvin.entregableweb.util.GlideApp;
 
 import java.util.List;
 
 public class AdapterObra extends RecyclerView.Adapter {
 
     private List<Pintura> datos;
+    private InterfaceObra listener;
 
-    public AdapterObra(List<Pintura> datos) {
+    public AdapterObra(List<Pintura> datos, InterfaceObra listener) {
         this.datos = datos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -60,13 +66,33 @@ public class AdapterObra extends RecyclerView.Adapter {
 
             nombre = itemView.findViewById(R.id.nombrePintura);
             imagen = itemView.findViewById(R.id.imagenPintura);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer id = datos.get(getAdapterPosition()).getIdArtista();
+                    String referencia = datos.get(getAdapterPosition()).getImage();
+
+                    Bundle datos = new Bundle();
+
+                    datos.putInt(DetalleActivity.ID_ARTISTA, id);
+                    datos.putString(DetalleActivity.KEY_IMAGEN, referencia);
+
+                    listener.pasarDetalle(datos);
+
+                }
+            });
         }
 
 
         public void cargar(Pintura unaPintura){
 
+            StorageReference reference = FirebaseStorage.getInstance().getReference();
+
+            reference = reference.child(unaPintura.getImage());
+
             nombre.setText(unaPintura.getNombre());
-            imagen.setImageResource(R.drawable.grito);
+            GlideApp.with(itemView.getContext()).load(reference).into(imagen);
         }
     }
 
@@ -74,5 +100,10 @@ public class AdapterObra extends RecyclerView.Adapter {
         this.datos = datos;
 
         notifyDataSetChanged();
+    }
+
+    public interface InterfaceObra{
+
+        void pasarDetalle(Bundle datos);
     }
 }
