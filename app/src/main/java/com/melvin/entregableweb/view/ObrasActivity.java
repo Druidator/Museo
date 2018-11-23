@@ -1,17 +1,17 @@
 package com.melvin.entregableweb.view;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.melvin.entregableweb.R;
 import com.melvin.entregableweb.controller.ControllerPintura;
 import com.melvin.entregableweb.model.Pintura;
@@ -54,6 +54,15 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
         recycler.setAdapter(adapter);
 
         recycler.setLayoutManager(manager);
+
+        FloatingActionButton fabCamera = findViewById(R.id.fabCamera);
+
+        fabCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
     }

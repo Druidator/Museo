@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "479264696186",
+    "firebase_url": "https://entregableserviciosweb-d3011.firebaseio.com",
+    "project_id": "entregableserviciosweb-d3011",
+    "storage_bucket": "entregableserviciosweb-d3011.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479264696186:android:9d15149c52bb27b5",
+        "android_client_info": {
+          "package_name": "com.melvin.entregableweb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479264696186-ksgt08uo83fmsqnlrpqil3bkn4fq0e9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.melvin.entregableweb",
+            "certificate_hash": "d317016e604347a311e54f8d1c67a8c38175cd9b"
+          }
+        },
+        {
+          "client_id": "479264696186-s9utcn1n2hhvp3andr41gaou3l68o4is.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.melvin.entregableweb",
+            "certificate_hash": "42b94e917664926fbccefc8fbe9d36f960d0183e"
+          }
+        },
+        {
+          "client_id": "479264696186-44g58vor5ugqblpe2jcdt7kkiffjd9kn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBErAy8JWqEUZ-78XfZQhUQA13VE7jTgNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479264696186-44g58vor5ugqblpe2jcdt7kkiffjd9kn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
