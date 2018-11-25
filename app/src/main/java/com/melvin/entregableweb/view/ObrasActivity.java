@@ -1,6 +1,9 @@
 package com.melvin.entregableweb.view;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,16 +12,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.melvin.entregableweb.R;
 import com.melvin.entregableweb.controller.ControllerPintura;
 import com.melvin.entregableweb.model.Pintura;
 import com.melvin.entregableweb.util.ResultListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class ObrasActivity extends AppCompatActivity implements AdapterObra.InterfaceObra{
 
@@ -60,7 +71,7 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
         fabCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EasyImage.openChooserWithGallery(ObrasActivity.this, "Selecciona...", 101);
             }
         });
 
@@ -93,5 +104,49 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
     @Override
     public void pasarDetalle(Bundle datos) {
         startActivity(new Intent(ObrasActivity.this, DetalleActivity.class).putExtras(datos));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, ObrasActivity.this, new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource imageSource, int i) {
+
+            }
+
+            @Override
+            public void onImagesPicked(@NonNull List<File> list, EasyImage.ImageSource imageSource, int i) {
+
+                if (list.size() > 0){
+
+                    switch (i){
+                        case 101:
+
+                            File file = list.get(0);
+
+                            Uri uri = Uri.fromFile(file);
+
+                            StorageReference reference = FirebaseStorage.getInstance().getReference().child("fotos").child(uri.getLastPathSegment());
+
+                            UploadTask uploadTask = reference.putFile(uri);
+
+                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Toast.makeText(ObrasActivity.this, "Se subio exitosamente", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource imageSource, int i) {
+
+            }
+        });
     }
 }

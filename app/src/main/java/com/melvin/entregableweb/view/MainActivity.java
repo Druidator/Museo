@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // INICIALIZAR FIREBASE AUTHENTICATION
         mAuth = FirebaseAuth.getInstance();
 
+        Util.printHash(this);
         // Facebook
 
         callbackManager = CallbackManager.Factory.create();
