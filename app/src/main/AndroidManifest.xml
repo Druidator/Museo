@@ -28,9 +28,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ObrasActivity" />
-        <activity android:name=".view.DetalleActivity"
-
-            android:parentActivityName=".view.ObrasActivity"></activity>
+        <activity
+            android:name=".view.DetalleActivity"
+            android:parentActivityName=".view.ObrasActivity" />
+        <activity android:name=".view.ChatActivity"></activity>
     </application>
 
 </manifest>

@@ -6,4 +6,5 @@
     <string name="nombre">Nombre: </string>
     <string name="nacionalidad">Nacionalidad: </string>
     <string name="influenciado">Influenciado por: </string>
+    <string name="chat">Chat</string>
 </resources>

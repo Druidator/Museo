@@ -98,6 +98,10 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
             startActivity(unIntent);
         }
 
+        if (item.getItemId() == R.id.chat){
+            startActivity(new Intent(ObrasActivity.this, ChatActivity.class));
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
