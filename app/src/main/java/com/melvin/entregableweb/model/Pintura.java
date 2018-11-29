@@ -2,8 +2,15 @@ package com.melvin.entregableweb.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity
 public class Pintura {
 
+    @PrimaryKey
+    @NonNull
     private String image;
     @SerializedName("name")
     private String nombre;

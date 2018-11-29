@@ -1,7 +1,13 @@
 package com.melvin.entregableweb.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class Artista {
 
+
+    public Integer id;
     private String Influenced_by;
     private String artistId;
     private String name;
@@ -21,5 +27,21 @@ public class Artista {
 
     public String getNationality() {
         return nationality;
+    }
+
+    public void setInfluenced_by(String influenced_by) {
+        Influenced_by = influenced_by;
+    }
+
+    public void setArtistId(String artistId) {
+        this.artistId = artistId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 }

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
 
     private List<Pintura> datos = new ArrayList<>();
     private AdapterObra adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,11 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
 
         String nombreUsuario = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+
         getSupportActionBar().setTitle(nombreUsuario);
+
+        adapter = new AdapterObra(datos, this);
 
         new ControllerPintura().obtenerPinturas(this, new ResultListener<List<Pintura>>() {
             @Override
@@ -54,13 +60,28 @@ public class ObrasActivity extends AppCompatActivity implements AdapterObra.Inte
             }
         });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new ControllerPintura().obtenerPinturas(ObrasActivity.this, new ResultListener<List<Pintura>>() {
+                    @Override
+                    public void finish(List<Pintura> resultado) {
+                        datos = resultado;
+
+                        adapter.setDatos(datos);
+                    }
+                });
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         RecyclerView recycler = findViewById(R.id.recyclerObras);
 
         recycler.setHasFixedSize(true);
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        adapter = new AdapterObra(datos, this);
 
         recycler.setAdapter(adapter);
 
