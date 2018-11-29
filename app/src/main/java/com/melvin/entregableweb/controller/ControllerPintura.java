@@ -18,17 +18,6 @@ public class ControllerPintura {
 
         database = DatabaseApp.getInMemoryDatabase(context);
 
-        long error1 = 0;
-        long error2 = 0;
-
-        boolean hayInternet = false;
-        /*
-        try {
-            hayInternet = Util.isInternetAvailable();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        */
         if (Util.hayInternet(context)){
 
             new DaoInternetPintura().obtenerPinturas(new ResultListener<List<Pintura>>() {

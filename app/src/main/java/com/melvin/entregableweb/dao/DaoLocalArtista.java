@@ -6,8 +6,6 @@ import android.arch.persistence.room.Query;
 
 import com.melvin.entregableweb.model.Artista;
 
-import java.util.List;
-
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao

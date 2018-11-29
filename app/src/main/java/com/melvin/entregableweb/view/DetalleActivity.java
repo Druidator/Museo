@@ -15,7 +15,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.melvin.entregableweb.R;
-import com.melvin.entregableweb.controller.ControllerArtista;
 import com.melvin.entregableweb.dao.DatabaseApp;
 import com.melvin.entregableweb.model.Artista;
 import com.melvin.entregableweb.util.GlideApp;

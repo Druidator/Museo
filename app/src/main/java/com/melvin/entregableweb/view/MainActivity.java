@@ -4,28 +4,19 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.melvin.entregableweb.R;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.melvin.entregableweb.util.Util;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(authStateListener);
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -65,12 +54,11 @@ public class MainActivity extends AppCompatActivity {
         // INICIALIZAR FIREBASE AUTHENTICATION
         mAuth = FirebaseAuth.getInstance();
 
-        Util.printHash(this);
         // Facebook
 
         callbackManager = CallbackManager.Factory.create();
 
-        final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        final LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
 
 
@@ -111,24 +99,5 @@ public class MainActivity extends AppCompatActivity {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential);
 
-        // Esto esta comentado ya que en algun cambio de Login de Usuario se llama al authStateListener
-
-                /*.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent unIntent = new Intent(MainActivity.this, ObrasActivity.class);
-
-                            startActivity(unIntent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });*/
     }
 }
