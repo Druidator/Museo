@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ChatActivity">
 
-    <LinearLayout
-        android:id="@+id/campoMensaje"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editTextMensaje"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/botonEnviar"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enviar" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fondo" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerMensajes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/campoMensaje"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</RelativeLayout>
+            <LinearLayout
+                android:id="@+id/campoMensaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginBottom="5dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="30dp">
+
+                    <EditText
+                        android:id="@+id/editTextMensaje"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:inputType="textMultiLine"
+                        android:maxLines="1" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/botonEnviar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_send"
+                    android:scaleType="centerCrop"
+                    app:fabSize="normal"
+                    android:layout_marginLeft="10dp"
+                    />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerMensajes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/campoMensaje" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

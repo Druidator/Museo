@@ -2,13 +2,15 @@ package com.melvin.entregableweb.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class Artista {
 
 
-    public Integer id;
     private String Influenced_by;
+    @PrimaryKey
+    @NonNull
     private String artistId;
     private String name;
     private String nationality;

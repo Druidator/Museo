@@ -15,13 +15,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.melvin.entregableweb.R;
+import com.melvin.entregableweb.controller.ControllerArtista;
+import com.melvin.entregableweb.dao.DatabaseApp;
 import com.melvin.entregableweb.model.Artista;
 import com.melvin.entregableweb.util.GlideApp;
+import com.melvin.entregableweb.util.Util;
 
 public class DetalleActivity extends AppCompatActivity {
 
     public static final String ID_ARTISTA = "idArtista";
     public static final String KEY_IMAGEN = "imagen";
+    private DatabaseApp databaseApp;
+    private Artista artista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,34 +50,60 @@ public class DetalleActivity extends AppCompatActivity {
 
 
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("artists");
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        databaseApp = DatabaseApp.getInMemoryDatabase(this);
 
-                for (DataSnapshot child : dataSnapshot.getChildren()){
-                    Artista artista = child.getValue(Artista.class);
+        if (Util.hayInternet(this)) {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("artists");
 
-                    if (artista.getArtistId().equals(idArtista.toString())){
-                        nombre.setText(artista.getName());
-                        nacionalidad.setText(artista.getNationality());
-                        influenciado.setText(artista.getInfluenced_by());
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        StorageReference referenceImage = FirebaseStorage.getInstance().getReference();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        Artista unArtista = child.getValue(Artista.class);
 
-                        referenceImage = referenceImage.child(referenciaImagen);
+                        if (unArtista.getArtistId().equals(idArtista.toString())) {
 
-                        GlideApp.with(DetalleActivity.this).load(referenceImage).into(imagen);
+                            artista = unArtista;
+
+                            nombre.setText(artista.getName());
+                            nacionalidad.setText(artista.getNationality());
+                            influenciado.setText(artista.getInfluenced_by());
+
+                            StorageReference referenceImage = FirebaseStorage.getInstance().getReference();
+
+                            referenceImage = referenceImage.child(referenciaImagen);
+
+                            GlideApp.with(DetalleActivity.this).load(referenceImage).into(imagen);
+                        }
+
+                        databaseApp.modeloArtista().grabarArtista(unArtista);
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+        } else {
+
+            artista = databaseApp.modeloArtista().obtenerArtistaPorId(idArtista.toString());
+
+            nombre.setText(artista.getName());
+            nacionalidad.setText(artista.getNationality());
+            influenciado.setText(artista.getInfluenced_by());
+
+            StorageReference referenceImage = FirebaseStorage.getInstance().getReference();
+
+            referenceImage = referenceImage.child(referenciaImagen);
+
+            GlideApp.with(DetalleActivity.this).load(referenceImage).into(imagen);
+        }
+
+
 
 
     }
